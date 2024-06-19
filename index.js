@@ -139,7 +139,13 @@ function displayImg() {
 
 }
 function showImg() {
+    let dots=''
     displayImg();
+    for (let i = 0; i < imgArr.length; i++) {
+        dots+=`<span class="dot${i} dots" id="dot${i}" onclick="jump(${i})"></span>`
+        
+    }
+    document.getElementById("dot").innerHTML=dots
 }
 function next() {
     let button= document.getElementById("button2")
@@ -176,6 +182,14 @@ function previous() {
         no = imgArr.length - 1;
         displayImg();
     }
+
+}
+function jump(index){
+    let images = `<div class="image">
+    <img src="${URL.createObjectURL(imgArr[index])}" alt="image" style="display: block;">
+    </div>`
+    output.innerHTML = images;
+
 
 }
 
