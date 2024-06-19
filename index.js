@@ -69,21 +69,40 @@ uploadImg.addEventListener("change", function () {
 
 function displayImg() {
 
+    let dImages='';
+    for (let i = 0; i < imgArr.length; i++) {
+        dImages+=` <div class="image">
+    <img src="${URL.createObjectURL(imgArr[i])}" alt="image" style="display: none;" >
+    </div> `   
+    output.innerHTML = dImages;     
+    }
+
    if(up==0 && pre==0){
     let images = `<div class="image">
-    <img src="${URL.createObjectURL(imgArr[no])}" alt="image">
+    <img src="${URL.createObjectURL(imgArr[no])}" alt="image" style="display: block;">
     </div>`
     output.innerHTML = images;
+   
+
    }
    else if(pre!=0){
+
+    // let images = `<div class="image-stedy">
+    // <img src="${URL.createObjectURL(imgArr[no-1])}" alt="image" style="display: block;">
+    // </div>`
+    // output.innerHTML = images;
+
     let images = `<div class="l-image">
-    <img src="${URL.createObjectURL(imgArr[no])}" alt="image">
+    <img src="${URL.createObjectURL(imgArr[no])}" alt="image" style="display: block;">
     </div>`
     output.innerHTML = images;
+
+    
+
    }
    else{
     let images = `<div class="image">
-    <img src="${URL.createObjectURL(imgArr[no])}" alt="image">
+    <img src="${URL.createObjectURL(imgArr[no])}" alt="image" style="display: block;">
     </div>`
     output.innerHTML = images;
    }
