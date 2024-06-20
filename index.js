@@ -58,9 +58,9 @@ let up = 0;
 let pre = 0;
 let no = 0;
 let lastIndex;
-
-
-
+let previousImg;
+// console.log("current Index = "+no);
+// console.log("last index= "+previousImg);
 
 uploadImg.addEventListener("change", function () {
 
@@ -70,83 +70,91 @@ uploadImg.addEventListener("change", function () {
     }
 })
 
+let dImages = [];
 function displayImg() {
-
-    let dImages = '';
-    for (let i = 0; i < imgArr.length; i++) {
-        dImages += ` <div class="image">
-    <img src="${URL.createObjectURL(imgArr[i])}" alt="image" style="display: none;" >
-    </div> `
-        lastIndex = i;
+    if (displayImg.length != 0) {
+        for (let i = 0; i < imgArr.length; i++) {
+            dImages[i] = ` <div class="image">
+            <img src="${URL.createObjectURL(imgArr[i])}" alt="image"  >
+            </div> `
+            lastIndex = i;
+            output.innerHTML = dImages;
+        }
+    }
+    else {
+        for (let i = 0; i < imgArr.length; i++) {
+            if (i == no || i == previousImg) {
+                dImages[i] = ` <div class="image" style="opacity:1;">
+                                    <img src="${URL.createObjectURL(imgArr[i])}" alt="image"  >
+                                </div> `
+                lastIndex = i;
+            }
+            else {
+                dImages[i] = ` <div class="image">
+                                    <img src="${URL.createObjectURL(imgArr[i])}" alt="image"  >
+                                </div> `
+                lastIndex = i;
+            }
+        }
         output.innerHTML = dImages;
     }
 
+
+
     if (up == 0 && pre == 0) {
-        let images = `<div class="image">
-    <img src="${URL.createObjectURL(imgArr[no])}" alt="image" style="display: block;">
+        dImages[no] = `<div class="image" style="opacity:1">
+    <img src="${URL.createObjectURL(imgArr[no])}" alt="image">
     </div>`
         lastIndex = no;
-        output.innerHTML = images;
-
-
+        output.innerHTML = dImages;
     }
     else if (pre != 0) {
 
-        let images = ''
+
         if (no + 1 >= imgArr.length) {
 
             // let new = imgArr.length - 1
-            images += `<div class="still-image">
-    <img src="${URL.createObjectURL(imgArr[0])}" alt="image" style="display: block;">
+            dImages[0] = `<div class="still-image" style="opacity:1">
+    <img src="${URL.createObjectURL(imgArr[0])}" alt="image" >
     </div>`
-            // lastIndex = 0;
-            output.innerHTML = images;
+            lastIndex = 0;
+            output.innerHTML = dImages;
         }
         else {
-            images += `<div class="still-image">
-    <img src="${URL.createObjectURL(imgArr[no + 1])}" alt="image" style="display: block;">
+            dImages[no + 1] = `<div class="still-image" style="opacity:1">
+    <img src="${URL.createObjectURL(imgArr[no + 1])}" alt="image" >
     </div>`
-            // lastIndex = no + 1;
-            output.innerHTML = images;
+            lastIndex = no + 1;
+            output.innerHTML = dImages;
         }
-
-        images += `<div class="l-image">
-    <img src="${URL.createObjectURL(imgArr[no])}" alt="image" style="display: block;">
+        dImages[no] = `<div class="l-image" style="opacity:1">
+    <img src="${URL.createObjectURL(imgArr[no])}" alt="image">
     </div>`
         lastIndex = no;
-        output.innerHTML = images;
-
-
-
+        output.innerHTML = dImages;
     }
     else {
-        let images = ''
         if (no - 1 < 0) {
 
             // let new = imgArr.length - 1
-            images += `<div class="still-image">
-    <img src="${URL.createObjectURL(imgArr[imgArr.length - 1])}" alt="image" style="display: block;">
+            dImages[imgArr.length - 1] = `<div class="still-image" style="opacity:1">
+    <img src="${URL.createObjectURL(imgArr[imgArr.length - 1])}" alt="image">
     </div>`
-            // lastIndex = imgArr.length - 1;
-            output.innerHTML = images;
+            output.innerHTML = dImages;
         }
         else {
-            images += `<div class="still-image">
-    <img src="${URL.createObjectURL(imgArr[no - 1])}" alt="image" style="display: block;">
+            dImages[no - 1] = `<div class="still-image" style="opacity:1">
+    <img src="${URL.createObjectURL(imgArr[no - 1])}" alt="image">
     </div>`
-            // lastIndex = no - 1
-            output.innerHTML = images;
+            output.innerHTML = dImages;
         }
 
-        images += `<div class="image">
-    <img src="${URL.createObjectURL(imgArr[no])}" alt="image" style="display: block;">
+        dImages[no] = `<div class="image" style="opacity:1">
+    <img src="${URL.createObjectURL(imgArr[no])}" alt="image">
     </div>`
         lastIndex = no
-        output.innerHTML = images;
+        output.innerHTML = dImages;
     }
-
-
-
 }
 function showImg() {
     let dots = ''
@@ -156,21 +164,22 @@ function showImg() {
 
     }
     document.getElementById("dot").innerHTML = dots
-    document.getElementById(lastIndex).className="hoverd-dot"
+    document.getElementById(lastIndex).className = "hoverd-dot"
 }
 function next() {
     let button = document.getElementById("button2")
     button.style.animation = "none"
+    previousImg = no;
     no += 1;
-    lastIndex+=1;
-    if(lastIndex>=imgArr.length){
-        lastIndex=0;
-        document.getElementById(imgArr.length-1).className="dots"
-        document.getElementById(lastIndex).className="hoverd-dot"
+    lastIndex += 1;
+    if (lastIndex >= imgArr.length) {
+        lastIndex = 0;
+        document.getElementById(imgArr.length - 1).className = "dots"
+        document.getElementById(lastIndex).className = "hoverd-dot"
     }
-    else{
-            document.getElementById(lastIndex).className="hoverd-dot"
-    document.getElementById(lastIndex-1).className="dots"
+    else {
+        document.getElementById(lastIndex).className = "hoverd-dot"
+        document.getElementById(lastIndex - 1).className = "dots"
     }
 
     up = 1;
@@ -183,29 +192,23 @@ function next() {
         no = 0;
         displayImg();
     }
-    //                 displayImg.setAttribute('src',e.target.result)
     button.style.animation = "zoomm 1s linear"
-
-    // setTimeout(()=>{
-    //     button.style.transform='translatex(10px)'
-    // },500)
-    // setTimeout(()=>{
-    //     button.style.transform='translatex(0px)'
-    // },500)
-
-
-
 }
 function previous() {
+    previousImg = no;
     no -= 1
     up = 0;
     pre = 1;
-    document.getElementById(lastIndex).className="dots"
-    lastIndex-=1;
-    if(lastIndex<0){
-        lastIndex=imgArr.length-1;
-        document.getElementById(0).className="dots"
-
+    document.getElementById(lastIndex).className = "dots"
+    lastIndex -= 1;
+    if (lastIndex < 0) {
+        lastIndex = imgArr.length - 1;
+        document.getElementById(lastIndex).className = "hoverd-dot"
+        document.getElementById(0).className = "dots"
+    }
+    else {
+        document.getElementById(lastIndex).className = "hoverd-dot"
+        document.getElementById(lastIndex + 1).className = "dots"
     }
     if (no >= 0) {
         displayImg();
@@ -214,28 +217,20 @@ function previous() {
         no = imgArr.length - 1;
         displayImg();
     }
-    document.getElementById(lastIndex).className="hoverd-dot"
-    document.getElementById(lastIndex+1).className="dots"
-
-
 }
-
-
-
-
 function jump(index) {
-    let images=`<div class="still-image">
+    let images = `<div class="still-image">
     <img src="${URL.createObjectURL(imgArr[lastIndex])}" alt="image" style="display: block;">
     </div>`
-    document.getElementById(lastIndex).className="dots"
+    document.getElementById(lastIndex).className = "dots"
     images += `<div class="image">
     <img src="${URL.createObjectURL(imgArr[index])}" alt="image" style="display: block;">
     </div>`
-    no=index;
-    lastIndex=index;
+    no = index;
+    lastIndex = index;
     output.innerHTML = images;
 
-    document.getElementById(index).className="hoverd-dot"
+    document.getElementById(index).className = "hoverd-dot"
 
 }
 

@@ -45,6 +45,10 @@ body button:hover img {
   border-radius: 50%;
 }
 
+.outputHidden {
+  display: none;
+}
+
 output {
   width: 100%;
   height: 450px;
@@ -60,6 +64,10 @@ output {
   position: relative;
 }
 
+.visible {
+  z-index: 2;
+}
+
 output .image {
   border-radius: 5px;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.15);
@@ -70,6 +78,8 @@ output .image {
      object-fit: contain;
   animation: left-right 1s linear;
   position: absolute;
+  opacity: 0;
+  transition: all 1s ease;
 }
 
 output .still-image {
@@ -82,6 +92,8 @@ output .still-image {
      object-fit: contain;
   animation: blur 1s linear;
   position: absolute;
+  opacity: 0;
+  transition: all 1s ease;
 }
 
 output .l-image {
@@ -94,6 +106,21 @@ output .l-image {
      object-fit: contain;
   animation: right-left 1s linear;
   position: absolute;
+  opacity: 0;
+  transition: all 1s ease;
+}
+
+output .fade-image {
+  border-radius: 5px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  -o-object-fit: contain;
+     object-fit: contain;
+  animation: fade 1s linear;
+  position: absolute;
+  opacity: 0;
 }
 
 .dots {
@@ -125,12 +152,22 @@ output .l-image {
   background-color: aqua;
 }
 
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 @keyframes blur {
   from {
     filter: blur(0px);
+    opacity: 1;
   }
   to {
     filter: blur(10px);
+    opacity: 0;
   }
 }
 @keyframes left-right {
@@ -183,7 +220,16 @@ output .still-image img {
   width: 100%;
 }
 
+output .fade-image img {
+  height: 100%;
+  width: 100%;
+}
+
 .submit {
   margin: 0px;
   margin-top: 20px;
+}
+
+.active {
+  opacity: 1;
 }/*# sourceMappingURL=index.css.map */
