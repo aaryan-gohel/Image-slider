@@ -12,6 +12,7 @@ body {
   width: 100%;
   height: 100vh;
 }
+
 body button {
   padding: 10px;
   border-radius: 10px;
@@ -25,11 +26,13 @@ body button {
   cursor: pointer;
   margin: 0 20px;
 }
+
 body button:hover {
   background-color: blueviolet;
   color: white;
   transform: scale(1.2);
 }
+
 body button:hover img {
   filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7479%) hue-rotate(70deg) brightness(99%) contrast(107%);
 }
@@ -41,6 +44,7 @@ body button:hover img {
   width: 50%;
   height: 500px;
 }
+
 .output button {
   border-radius: 50%;
 }
@@ -49,7 +53,7 @@ output {
   width: 100%;
   height: 450px;
   -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
   min-height: 150px;
   display: flex;
   justify-content: center;
@@ -67,9 +71,18 @@ output .image {
   height: 100%;
   overflow: hidden;
   -o-object-fit: contain;
-     object-fit: contain;
-  animation: left-right 1s linear;
+  object-fit: contain;
   position: absolute;
+  visibility: hidden;
+  z-index: 2;
+}
+
+.active {
+  visibility: visible !important;
+}
+
+.animation {
+  animation: left-right 1s linear;
 }
 
 output .still-image {
@@ -79,9 +92,11 @@ output .still-image {
   height: 100%;
   overflow: hidden;
   -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
   animation: blur 1s linear;
   position: absolute;
+  visibility: hidden;
+  z-index: 1;
 }
 
 output .l-image {
@@ -91,9 +106,14 @@ output .l-image {
   height: 100%;
   overflow: hidden;
   -o-object-fit: contain;
-     object-fit: contain;
-  animation: right-left 1s linear;
+  object-fit: contain;
   position: absolute;
+  visibility: hidden;
+  z-index: 2;
+}
+
+l-animation {
+  animation: right-left 1s linear;
 }
 
 .dots {
@@ -186,4 +206,4 @@ output .still-image img {
 .submit {
   margin: 0px;
   margin-top: 20px;
-}/*# sourceMappingURL=index.css.map */
+} /*# sourceMappingURL=index.css.map */
